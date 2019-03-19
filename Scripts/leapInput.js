@@ -1,8 +1,9 @@
 const LEAP = {
-    position : {
-        x : 0,
-        y : 0,
-    },
+    /* players : [
+        { x : 0, y : 0 },
+        { x : 0, y : 0 },
+    ], */
+    position: { x : 0, y : 0},
     connected : false,
 };
 
