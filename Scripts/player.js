@@ -13,18 +13,12 @@ class Player {
         this.house.body.setCollisionGroup(this.tower_player);
         this.house.body.collides([this.tower_player]);
 
-        // this.faisceau = new Phaser.Rectangle(x_pos - 25, 50, 50, 500);
-        // game.add.sprite(this.faisceau);
-
         // Initialisation
-
-        piece_one = this.createPiece(x_pos - 55, 100, "piece_one", 'physicsData', this.tower_player);
-        piece_two = this.createPiece(x_pos, 300, "piece_two", 'physicsData', this.tower_player);
-
+        this.current_piece = this.spawnPiece(x_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData', this.tower_player);
     }
 
-    createPiece(x, y, name, physics_data, collision_group) {
-        let piece = game.add.sprite(x, y, name);
+    spawnPiece(x, y, name, physics_data, collision_group) {
+        this.current_piece = game.add.sprite(x, y, name);
         game.physics.p2.enable(piece);
     
         piece.body.clearShapes();
@@ -33,26 +27,12 @@ class Player {
         piece.body.setCollisionGroup(collision_group);
         piece.body.collides([collision_group]);
         // piece.body.fixedRotation = true;
-        piece.body.onBeginContact.add((bodyA, bodyB, shapeA, shapeB, equation) => {
-            /* if (bodyA.setZeroVelocity) {
-                bodyA.setZeroVelocity();
-            }
-            if (bodyB.setZeroVelocity) {
-                bodyB.setZeroVelocity();
-            } */
-        }, this);
         
-        piece.body.damping = 0;
-        piece.body.mass = 1;
-        piece.body.restitution = 0;
-        
-        piece.body.moveDown(100);
-        
-        return piece;
+        piece.body.damping = 0.5;
+        piece.body.mass = 0.1;
     }
 
     update() {
-
         if (LEAP.connected) {
             this.faisceau.x = LEAP.position.x;
             // this.faisceau.x = LEAP.players[ player_number ].x

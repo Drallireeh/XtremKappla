@@ -11,32 +11,32 @@ const game = new Phaser.Game(
     }
 );
 
-// const Pieces = [];
-// let tower_player_one = [];
-// let tower_player_two = [];
-// const positions = [30,90,150,210,270,330,390,450,510];
+let pieces = ["piece_one", "piece_two", "piece_three", "piece_four"];
 
 let faisceau;
-let piece_one;
-let piece_two;
 let house;
 let player_one;
 let player_two;
 
 function preload() {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+    // sprites
     game.load.image('piece_one', '../Assets/Images/piece_one.png');
     game.load.image('piece_two', '../Assets/Images/piece_two.png');
+    game.load.image('piece_three', '../Assets/Images/piece_three.png');
+    game.load.image('piece_four', '../Assets/Images/piece_four.png');
     game.load.image('house', '../Assets/Images/house.png');
-
     game.load.image('background', '../Assets/Images/background.jpg');
 
+    // physics
     game.load.physics('physicsData', '../Assets/physics.json');
 }
 
 function create() {
     game.physics.startSystem(Phaser.Physics.P2JS);
     game.physics.p2.updateBoundsCollisionGroup();
+    game.physics.p2.gravity.y = 100;
     game.physics.p2.restitution = 0;
 
     background = game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
