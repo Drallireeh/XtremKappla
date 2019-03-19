@@ -28,6 +28,7 @@ function preload() {
     game.load.image('piece_one', '../Assets/Images/piece_one.png');
     game.load.image('piece_two', '../Assets/Images/piece_two.png');
     game.load.image('house', '../Assets/Images/house.png');
+    game.load.image('faisceau', '../Assets/Images/faisceau.png')
 
     game.load.image('background', '../Assets/Images/background.jpg');
 
