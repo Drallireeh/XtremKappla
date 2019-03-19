@@ -36,7 +36,7 @@ function preload() {
 
 function create() {
     game.physics.startSystem(Phaser.Physics.P2JS);
-    game.physics.p2.updateBoundsCollisionGroup();
+    // game.physics.p2.updateBoundsCollisionGroup();
     game.physics.p2.gravity.y = 100;
     game.physics.p2.restitution = 0;
 
