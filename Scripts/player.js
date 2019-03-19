@@ -10,8 +10,8 @@ class Player {
         this.house.body.static = true;
         this.house.body.clearShapes();
         this.house.body.loadPolygon('physicsData', 'house');
-        // this.house.body.setCollisionGroup(this.tower_player);
-        // this.house.body.collides([this.tower_player]);
+        this.house.body.setCollisionGroup(this.tower_player);
+        this.house.body.collides([this.tower_player]);
 
         // Initialisation
         this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData', this.tower_player);
@@ -34,7 +34,6 @@ class Player {
         this.current_piece = game.add.sprite(x, y, name);
         game.physics.p2.enable(this.current_piece);
 
-        this.current_piece.collideWorldBounds = false;
         this.current_piece.body.clearShapes();
         this.current_piece.body.loadPolygon(physics_data, name);
 
@@ -46,11 +45,9 @@ class Player {
     }
 
     update() {
-        if (this.current_piece != undefined) {
-            if (this.current_piece.y > window.innerHeight + 50) {
-                this.current_piece.body.destroy();
-                this.current_piece = this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData', this.tower_player);
-            }
+        if (this.current_piece.y > window.innerHeight + 50 && this.current_piece != undefined) {
+            this.current_piece.body.destroy();
+            this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData', this.tower_player);
         }
 
         // if (LEAP.connected) {
