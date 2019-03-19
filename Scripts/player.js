@@ -22,6 +22,14 @@ class Player {
         this.faisceau.width = this.current_piece.width;
     }
 
+    /**
+     * Add a piece, place it and adjust parameters
+     * @param {int} x position in x
+     * @param {int} y position in x
+     * @param {string} name name of the piece
+     * @param {string} physics_data name of the file to load data
+     * @param {Phaser.Physics.P2.CollisionGroup} collision_group collision group off this item
+     */
     spawnPiece(x, y, name, physics_data, collision_group) {
         this.current_piece = game.add.sprite(x, y, name);
         game.physics.p2.enable(this.current_piece);

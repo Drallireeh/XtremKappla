@@ -48,6 +48,11 @@ controller.on('frame', function(frame) {
     //console.log(LEAP.position)
 });
 
+/**
+ * Transforme les coordonnées 3D récupérée par le Leap en coordonnées 2D pour un <canvas> web
+ * @param {Array} leapPosition Tableau de coordonnées 3d [x, y, z]
+ * @param {Object} frame Objet "frame" transmit par le Leap Motion
+ */
 function get2dCoords(leapPosition, frame) {
     const interactionBox = frame.interactionBox;
     const normalizedPoint = interactionBox.normalizePoint(leapPosition, true);
