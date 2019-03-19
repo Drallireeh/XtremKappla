@@ -1,9 +1,12 @@
 const LEAP = {
-    /* players : [
+    position : { 
+        x : 0, 
+        y : 0
+    },
+    players : [
         { x : 0, y : 0 },
         { x : 0, y : 0 },
-    ], */
-    position: { x : 0, y : 0},
+    ],
     connected : false,
 };
 
@@ -22,12 +25,25 @@ controller.on('deviceDisconnected', function() {
 });
 
 controller.on('frame', function(frame) {
-    let hand = frame.hands[0];
-    if (!hand) return;
+    let hand_one = frame.hands[0];
+    let hand_two = frame.hands[1];
+    
+    if (LEAP.players[0].x < 700){
+        hand_one = frame.hands[0];
+        hand_two = frame.hands[1];
+    } else {
+        hand_one = frame.hands[1];
+        hand_two = frame.hands[0];
+    }
+    if (!hand_one || !hand_two) return;
 
-    const palm = get2dCoords(hand.stabilizedPalmPosition, frame);
-    LEAP.position.x = palm.x;
-    LEAP.position.y = palm.y;
+    const palm_one = get2dCoords(hand_one.stabilizedPalmPosition, frame);
+    LEAP.players[0].x = palm_one.x;
+    LEAP.players[0].y = palm_one.y;
+
+    const palm_two = get2dCoords(hand_two.stabilizedPalmPosition, frame);
+    LEAP.players[1].x = palm_two.x;
+    LEAP.players[1].y = palm_two.y;
 
     //console.log(LEAP.position)
 });

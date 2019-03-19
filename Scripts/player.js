@@ -15,6 +15,11 @@ class Player {
 
         // Initialisation
         this.current_piece = this.spawnPiece(x_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData', this.tower_player);
+        
+        // this.faisceau = new Phaser.Rectangle(x_pos - 25, 50, 50, 500);
+        this.faisceau = game.add.sprite(x_pos - 25, 0,'faisceau');
+        this.faisceau.anchor.set(0.5);
+        this.faisceau.width = piece_one.width;
     }
 
     spawnPiece(x, y, name, physics_data, collision_group) {
@@ -34,8 +39,9 @@ class Player {
 
     update() {
         if (LEAP.connected) {
-            this.faisceau.x = LEAP.position.x;
-            // this.faisceau.x = LEAP.players[ player_number ].x
+            // this.faisceau.x = LEAP.position.x;
+            this.faisceau.x = LEAP.players[ this.player_number ].x
+
             if (this.faisceau.x > 0 && this.faisceau.x < 60) {
                 this.faisceau.x = 30;
             } else if (this.faisceau.x > 60 && this.faisceau.x < 120) {
@@ -72,11 +78,25 @@ class Player {
                 this.faisceau.x = 990;
             } else if (this.faisceau.x > 1020 && this.faisceau.x < 1080) {
                 this.faisceau.x = 1050;
-            } else if (this.faisceau.x > 1080) {
-                this.faisceau.x = 1110
+            } else if (this.faisceau.x > 1080 && this.faisceau.x < 1140) {
+                this.faisceau.x = 1110;
+            } else if (this.faisceau.x > 1140 && this.faisceau.x < 1200) {
+                this.faisceau.x = 1170;
+            } else if (this.faisceau.x > 1200 && this.faisceau.x < 1260) {
+                this.faisceau.x = 1230;
+            } else if (this.faisceau.x > 1260 && this.faisceau.x < 1320) {
+                this.faisceau.x = 1290;
+            } else if (this.faisceau.x > 1320 && this.faisceau.x < 1380) {
+                this.faisceau.x = 1350;
+            } else if (this.faisceau.x > 1380 && this.faisceau.x < 1440) {
+                this.faisceau.x = 1410;
+            } else if (this.faisceau.x > 1440 && this.faisceau.x < 1500) {
+                this.faisceau.x = 1470;
+            } else if (this.faisceau.x > 1500) {
+                this.faisceau.x = 1480
             }
         } else {
-            // this.faisceau.x = game.input.x || game.world.width * 0.5;
+            this.faisceau.x = game.input.x || game.world.width * 0.5;
         }
     }
 
