@@ -37,10 +37,10 @@ class Player {
         
         this.current_piece.body.clearShapes();
         this.current_piece.body.loadPolygon(physics_data, name);
-
+        
         this.current_piece.body.setCollisionGroup(this.player_collision_group);
         this.current_piece.body.collides([this.player_collision_group]);
-
+        
         this.current_piece.body.damping = 0.5;
         this.current_piece.body.mass = 0.1;
         
@@ -56,73 +56,73 @@ class Player {
 
         if (LEAP.connected) {
             // this.faisceau.x = LEAP.position.x;
-            this.faisceau.x = LEAP.players[ this.player_number ].x
+            this.current_piece.body.x = LEAP.players[ this.player_number ].x
             
-            if (this.faisceau.x > 0 && this.faisceau.x < 60) {
-                this.faisceau.x = 30;
-            } else if (this.faisceau.x > 60 && this.faisceau.x < 120) {
-                this.faisceau.x = 90;
-            } else if (this.faisceau.x > 120 && this.faisceau.x < 180) {
-                this.faisceau.x = 150;
-            } else if (this.faisceau.x > 180 && this.faisceau.x < 240) {
-                this.faisceau.x = 210;
-            } else if (this.faisceau.x > 240 && this.faisceau.x < 300) {
-                this.faisceau.x = 270;
-            } else if (this.faisceau.x > 300 && this.faisceau.x < 360) {
-                this.faisceau.x = 330;
-            } else if (this.faisceau.x > 360 && this.faisceau.x < 420) {
-                this.faisceau.x = 390;
-            } else if (this.faisceau.x > 420 && this.faisceau.x < 480) {
-                this.faisceau.x = 450;
-            } else if (this.faisceau.x > 480 && this.faisceau.x < 540) {
-                this.faisceau.x = 510;
-            } else if (this.faisceau.x > 540 && this.faisceau.x < 600) {
-                this.faisceau.x = 570;
-            } else if (this.faisceau.x > 600 && this.faisceau.x < 660) {
-                this.faisceau.x = 630;
-            } else if (this.faisceau.x > 660 && this.faisceau.x < 720) {
-                this.faisceau.x = 690;
-            } else if (this.faisceau.x > 720 && this.faisceau.x < 780) {
-                this.faisceau.x = 750;
-            } else if (this.faisceau.x > 780 && this.faisceau.x < 840) {
-                this.faisceau.x = 810;
-            } else if (this.faisceau.x > 840 && this.faisceau.x < 900) {
-                this.faisceau.x = 870;
-            } else if (this.faisceau.x > 900 && this.faisceau.x < 960) {
-                this.faisceau.x = 930;
-            } else if (this.faisceau.x > 960 && this.faisceau.x < 1020) {
-                this.faisceau.x = 990;
-            } else if (this.faisceau.x > 1020 && this.faisceau.x < 1080) {
-                this.faisceau.x = 1050;
-            } else if (this.faisceau.x > 1080 && this.faisceau.x < 1140) {
-                this.faisceau.x = 1110;
-            } else if (this.faisceau.x > 1140 && this.faisceau.x < 1200) {
-                this.faisceau.x = 1170;
-            } else if (this.faisceau.x > 1200 && this.faisceau.x < 1260) {
-                this.faisceau.x = 1230;
-            } else if (this.faisceau.x > 1260 && this.faisceau.x < 1320) {
-                this.faisceau.x = 1290;
-            } else if (this.faisceau.x > 1320 && this.faisceau.x < 1380) {
-                this.faisceau.x = 1350;
-            } else if (this.faisceau.x > 1380 && this.faisceau.x < 1440) {
-                this.faisceau.x = 1410;
-            } else if (this.faisceau.x > 1440 && this.faisceau.x < 1500) {
-                this.faisceau.x = 1470;
-            } else if (this.faisceau.x > 1500) {
-                this.faisceau.x = 1480
+            if (this.current_piece.body.x > 0 && this.current_piece.body.x < 60) {
+                this.current_piece.body.x = 30;
+            } else if (this.current_piece.body.x > 60 && this.current_piece.body.x < 120) {
+                this.current_piece.body.x = 90;
+            } else if (this.current_piece.body.x > 120 && this.current_piece.body.x < 180) {
+                this.current_piece.body.x = 150;
+            } else if (this.current_piece.body.x > 180 && this.current_piece.body.x < 240) {
+                this.current_piece.body.x = 210;
+            } else if (this.current_piece.body.x > 240 && this.current_piece.body.x < 300) {
+                this.current_piece.body.x = 270;
+            } else if (this.current_piece.body.x > 300 && this.current_piece.body.x < 360) {
+                this.current_piece.body.x = 330;
+            } else if (this.current_piece.body.x > 360 && this.current_piece.body.x < 420) {
+                this.current_piece.body.x = 390;
+            } else if (this.current_piece.body.x > 420 && this.current_piece.body.x < 480) {
+                this.current_piece.body.x = 450;
+            } else if (this.current_piece.body.x > 480 && this.current_piece.body.x < 540) {
+                this.current_piece.body.x = 510;
+            } else if (this.current_piece.body.x > 540 && this.current_piece.body.x < 600) {
+                this.current_piece.body.x = 570;
+            } else if (this.current_piece.body.x > 600 && this.current_piece.body.x < 660) {
+                this.current_piece.body.x = 630;
+            } else if (this.current_piece.body.x > 660 && this.current_piece.body.x < 720) {
+                this.current_piece.body.x = 690;
+            } else if (this.current_piece.body.x > 720 && this.current_piece.body.x < 780) {
+                this.current_piece.body.x = 750;
+            } else if (this.current_piece.body.x > 780 && this.current_piece.body.x < 840) {
+                this.current_piece.body.x = 810;
+            } else if (this.current_piece.body.x > 840 && this.current_piece.body.x < 900) {
+                this.current_piece.body.x = 870;
+            } else if (this.current_piece.body.x > 900 && this.current_piece.body.x < 960) {
+                this.current_piece.body.x = 930;
+            } else if (this.current_piece.body.x > 960 && this.current_piece.body.x < 1020) {
+                this.current_piece.body.x = 990;
+            } else if (this.current_piece.body.x > 1020 && this.current_piece.body.x < 1080) {
+                this.current_piece.body.x = 1050;
+            } else if (this.current_piece.body.x > 1080 && this.current_piece.body.x < 1140) {
+                this.current_piece.body.x = 1110;
+            } else if (this.current_piece.body.x > 1140 && this.current_piece.body.x < 1200) {
+                this.current_piece.body.x = 1170;
+            } else if (this.current_piece.body.x > 1200 && this.current_piece.body.x < 1260) {
+                this.current_piece.body.x = 1230;
+            } else if (this.current_piece.body.x > 1260 && this.current_piece.body.x < 1320) {
+                this.current_piece.body.x = 1290;
+            } else if (this.current_piece.body.x > 1320 && this.current_piece.body.x < 1380) {
+                this.current_piece.body.x = 1350;
+            } else if (this.current_piece.body.x > 1380 && this.current_piece.body.x < 1440) {
+                this.current_piece.body.x = 1410;
+            } else if (this.current_piece.body.x > 1440 && this.current_piece.body.x < 1500) {
+                this.current_piece.body.x = 1470;
+            } else if (this.current_piece.body.x > 1500) {
+                this.current_piece.body.x = 1480
             }
         } else {
             if(this.player_number == 1){
                 if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-                    this.faisceau.x -= 4;
+                    this.current_piece.body.x -= 4;
                 } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-                    this.faisceau.x += 4;
+                    this.current_piece.body.x += 4;
                 }
             } else {
                 if (game.input.keyboard.isDown(Phaser.Keyboard.Q)){
-                    this.faisceau.x -= 4;
+                    this.current_piece.body.x -= 4;
                 } else if (game.input.keyboard.isDown(Phaser.Keyboard.D)) {
-                    this.faisceau.x += 4;
+                    this.current_piece.body.x += 4;
                 }
             }
         }
@@ -133,6 +133,10 @@ class Player {
      */
     onTowerHit() {
         this.current_piece.body.createGroupCallback(this.player_collision_group, null, game.context);
+        this.current_piece.removeChildren();
         this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
+
+        this.faisceau.width = this.current_piece.width; // Need boolean after
+        this.current_piece.addChild(this.faisceau);
     }
 }

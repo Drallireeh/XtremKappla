@@ -56,6 +56,5 @@ function update() {
 }
 
 function render() {
-    player_one.render();
-    player_two.render();
+    
 }
