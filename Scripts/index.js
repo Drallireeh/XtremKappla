@@ -44,8 +44,8 @@ function create() {
     
     background = game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
     
-    player_one = new Player(150, 0);
-    player_two = new Player(750, 1);
+    player_one = new Player(200, 0);
+    player_two = new Player(1300, 1);
     
     game.physics.p2.setImpactEvents(true);
 }
