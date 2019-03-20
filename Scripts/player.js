@@ -112,8 +112,6 @@ class Player {
                 this.faisceau.x = 1480
             }
         } else {
-            // this.faisceau.x = game.input.x || game.world.width * 0.5;
-
             if(this.player_number == 1){
                 if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
                     this.faisceau.x -= 4;
@@ -127,13 +125,12 @@ class Player {
                     this.faisceau.x += 4;
                 }
             }
-            
         }
     }
     
-    render() {
-    }
-
+    /**
+     * Callback when the current piece hit the tower
+     */
     onTowerHit() {
         this.current_piece.body.createGroupCallback(this.player_collision_group, null, game.context);
         this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
