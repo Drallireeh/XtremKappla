@@ -2,15 +2,16 @@ class Player {
     constructor(x_pos, player_number) {
         this.player_pos = x_pos;
         this.player_number = player_number;
-        this.tower_collision_group = game.physics.p2.createCollisionGroup();
+        this.player_collision_group = game.physics.p2.createCollisionGroup();
 
         this.tower = game.add.sprite(this.player_pos, window.innerHeight - 100, 'house');
         game.physics.p2.enable(this.tower);
         this.tower.body.static = true;
         this.tower.body.clearShapes();
         this.tower.body.loadPolygon('physicsData', 'house');
-        this.tower.body.setCollisionGroup(this.tower_collision_group);
-        this.tower.body.collides([piece_collision_group, this.tower_collision_group]);
+
+        this.tower.body.setCollisionGroup(this.player_collision_group);
+        this.tower.body.collides([this.player_collision_group]);
 
         // Initialisation
         this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
@@ -37,12 +38,13 @@ class Player {
         this.current_piece.body.clearShapes();
         this.current_piece.body.loadPolygon(physics_data, name);
 
-        this.current_piece.body.setCollisionGroup(piece_collision_group);
-        this.current_piece.body.collides([this.tower_collision_group]);
+        this.current_piece.body.setCollisionGroup(this.player_collision_group);
+        this.current_piece.body.collides([this.player_collision_group]);
 
         this.current_piece.body.damping = 0.5;
         this.current_piece.body.mass = 0.1;
-        // this.current_piece.body.createGroupCallback(this.tower_collision_group, this.onTowerHit, game.context);
+        
+        this.current_piece.body.createGroupCallback(this.player_collision_group, this.onTowerHit.bind(this), game.context);
     }
     
     update() {
@@ -132,13 +134,8 @@ class Player {
     render() {
     }
 
-    onTowerHit(body) {
-        body.removeCollisionGroup();
-        body.setCollisionGroup(this.tower_collision_group);
+    onTowerHit() {
+        this.current_piece.body.createGroupCallback(this.player_collision_group, null, game.context);
         this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
-    }
-
-    getCurrentPiece() {
-        return this.current_piece;
     }
 }
