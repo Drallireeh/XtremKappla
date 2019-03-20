@@ -15,9 +15,9 @@ class Player {
         // Initialisation
         this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
 
-        this.faisceau = game.add.sprite(this.player_pos - 25, 0, 'faisceau');
+        this.faisceau = game.add.sprite(0, 0, 'faisceau');
         this.faisceau.anchor.set(0.5);
-        this.faisceau.width = this.current_piece.width;
+        this.faisceau.width = this.current_piece.width; // Need boolean after
         
         this.current_piece.addChild(this.faisceau);
     }
