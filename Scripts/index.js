@@ -28,7 +28,7 @@ function preload() {
     game.load.image('piece_three', '../Assets/Images/piece_three.png');
     game.load.image('piece_four', '../Assets/Images/piece_four.png');
     game.load.image('house', '../Assets/Images/house.png');
-    game.load.image('faisceau', '../Assets/Images/faisceau.png')
+    game.load.image('light_beam', '../Assets/Images/faisceau.png')
     game.load.image('background', '../Assets/Images/background.jpg');
 
     // physics
@@ -56,5 +56,4 @@ function update() {
 }
 
 function render() {
-    
 }
