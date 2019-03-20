@@ -48,7 +48,6 @@ function create() {
     player_one = new Player(150, 0);
     player_two = new Player(750, 1);
     
-    
     // player_one.current_piece.body.createGroupCallback(player_one.tower_collision_group, player_one.onTowerHit, game.context);
     player_one.current_piece.body.createGroupCallback(player_one.tower_collision_group, function () {
             player_one.current_piece.body.removeCollisionGroup();

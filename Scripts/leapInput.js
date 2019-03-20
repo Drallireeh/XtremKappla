@@ -45,8 +45,16 @@ controller.on('frame', function(frame) {
     LEAP.players[1].x = palm_two.x;
     LEAP.players[1].y = palm_two.y;
 
-    //console.log(LEAP.position)
+    // Détection des gestures
+    frame.gestures.forEach(function(gesture) {
+        switch (gesture.type){
+            case 'keyTap':
+                renderKeyTap(frame, gesture);
+                break;
+        }
+    });
 });
+
 
 /**
  * Transforme les coordonnées 3D récupérée par le Leap en coordonnées 2D pour un <canvas> web
@@ -61,4 +69,13 @@ function get2dCoords(leapPosition, frame) {
         x : normalizedPoint[0] * window.innerWidth,
         y : (1 - normalizedPoint[1]) * window.innerHeight
     };
+}
+
+/**
+ * Dessine un gesture "Tap" à l'écran
+ * @param {Object} frame Objet "frame" transmit par le Leap Motion
+ * @param {Object} gesture Objet "gesture" de type "keyTap" à dessiner
+ */
+function renderKeyTap(frame, gesture){
+    console.log('ROTATE')
 }
