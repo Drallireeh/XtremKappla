@@ -111,7 +111,22 @@ class Player {
                 this.faisceau.x = 1480
             }
         } else {
-            this.faisceau.x = game.input.x || game.world.width * 0.5;
+            // this.faisceau.x = game.input.x || game.world.width * 0.5;
+
+            if(this.player_number == 1){
+                if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+                    this.faisceau.x -= 4;
+                } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                    this.faisceau.x += 4;
+                }
+            } else {
+                if (game.input.keyboard.isDown(Phaser.Keyboard.Q)){
+                    this.faisceau.x -= 4;
+                } else if (game.input.keyboard.isDown(Phaser.Keyboard.D)) {
+                    this.faisceau.x += 4;
+                }
+            }
+            
         }
     }
     
