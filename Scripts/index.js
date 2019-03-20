@@ -12,6 +12,7 @@ const game = new Phaser.Game(
 );
 
 let pieces = ["piece_one", "piece_two", "piece_three", "piece_four"];
+let piece_collision_group;
 
 let faisceau;
 let house;
@@ -39,18 +40,27 @@ function create() {
     // game.physics.p2.updateBoundsCollisionGroup();
     game.physics.p2.gravity.y = 100;
     game.physics.p2.restitution = 0;
-
+    
+    piece_collision_group = game.physics.p2.createCollisionGroup();
+    
     background = game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
     
     player_one = new Player(150, 0);
     player_two = new Player(750, 1);
+    
+    // player_one.current_piece.body.createGroupCallback(player_one.tower_collision_group, player_one.onTowerHit, game.context);
+    player_one.current_piece.body.createGroupCallback(player_one.tower_collision_group, function () {
+            player_one.current_piece.body.removeCollisionGroup();
+            player_one.current_piece.body.setCollisionGroup(player_one.tower_collision_group);
+            player_one.spawnPiece(player_one.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
+        }, game.context);
+    game.physics.p2.setImpactEvents(true);
 }
 
 function update() {
     player_one.update();
     player_two.update();
 }
-
 
 function render() {
     player_one.render();

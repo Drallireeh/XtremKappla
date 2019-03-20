@@ -2,19 +2,18 @@ class Player {
     constructor(x_pos, player_number) {
         this.player_pos = x_pos;
         this.player_number = player_number;
+        this.tower_collision_group = game.physics.p2.createCollisionGroup();
 
-        this.tower_player = game.physics.p2.createCollisionGroup();
-
-        this.house = game.add.sprite(this.player_pos, window.innerHeight - 100, 'house');
-        game.physics.p2.enable(this.house);
-        this.house.body.static = true;
-        this.house.body.clearShapes();
-        this.house.body.loadPolygon('physicsData', 'house');
-        this.house.body.setCollisionGroup(this.tower_player);
-        this.house.body.collides([this.tower_player]);
+        this.tower = game.add.sprite(this.player_pos, window.innerHeight - 100, 'house');
+        game.physics.p2.enable(this.tower);
+        this.tower.body.static = true;
+        this.tower.body.clearShapes();
+        this.tower.body.loadPolygon('physicsData', 'house');
+        this.tower.body.setCollisionGroup(this.tower_collision_group);
+        this.tower.body.collides([piece_collision_group, this.tower_collision_group]);
 
         // Initialisation
-        this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData', this.tower_player);
+        this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
 
         this.faisceau = game.add.sprite(this.player_pos - 25, 0, 'faisceau');
         this.faisceau.anchor.set(0.5);
@@ -31,28 +30,28 @@ class Player {
      * @param {string} physics_data name of the file to load data
      * @param {Phaser.Physics.P2.CollisionGroup} collision_group collision group off this item
      */
-    spawnPiece(x, y, name, physics_data, collision_group) {
+    spawnPiece(x, y, name, physics_data) {
         this.current_piece = game.add.sprite(x, y, name);
         game.physics.p2.enable(this.current_piece);
         
         this.current_piece.body.clearShapes();
         this.current_piece.body.loadPolygon(physics_data, name);
-        
-        this.current_piece.body.setCollisionGroup(collision_group);
-        this.current_piece.body.collides([collision_group]);
-        
+
+        this.current_piece.body.setCollisionGroup(piece_collision_group);
+        this.current_piece.body.collides([this.tower_collision_group]);
+
         this.current_piece.body.damping = 0.5;
         this.current_piece.body.mass = 0.1;
-
+        // this.current_piece.body.createGroupCallback(this.tower_collision_group, this.onTowerHit, game.context);
     }
     
     update() {
         if (this.current_piece.y > window.innerHeight + 50 && this.current_piece != undefined) {
             this.current_piece.body.destroy();
-            this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData', this.tower_player);
+            this.current_piece.destroy();
+            this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
         }
 
-        
         if (LEAP.connected) {
             // this.faisceau.x = LEAP.position.x;
             this.faisceau.x = LEAP.players[ this.player_number ].x
@@ -131,5 +130,15 @@ class Player {
     }
     
     render() {
+    }
+
+    onTowerHit(body) {
+        body.removeCollisionGroup();
+        body.setCollisionGroup(this.tower_collision_group);
+        this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
+    }
+
+    getCurrentPiece() {
+        return this.current_piece;
     }
 }
