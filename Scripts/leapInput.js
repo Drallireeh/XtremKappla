@@ -23,33 +23,30 @@ controller.on('deviceDisconnected', function() {
     LEAP.connected = false;
     console.log('❌ Leap disconnected');
 });
+controller.on('frame', function(frame) { 
 
-controller.on('frame', function(frame) {
     let hand_one = frame.hands[0];
-    let hand_two = frame.hands[1];
-    
-    if (LEAP.players[0].x < 700){
-        hand_one = frame.hands[0];
-        hand_two = frame.hands[1];
-    } else {
-        hand_one = frame.hands[1];
-        hand_two = frame.hands[0];
-    }
+    let hand_two = frame.hands[1];    
+        
     if (!hand_one || !hand_two) return;
 
     const palm_one = get2dCoords(hand_one.stabilizedPalmPosition, frame);
-    LEAP.players[0].x = palm_one.x;
-    LEAP.players[0].y = palm_one.y;
 
     const palm_two = get2dCoords(hand_two.stabilizedPalmPosition, frame);
-    LEAP.players[1].x = palm_two.x;
-    LEAP.players[1].y = palm_two.y;
+
+    if (palm_one.x <= 650 && palm_two.x >= 650  ){
+        LEAP.players[0].x = palm_one.x;
+        LEAP.players[1].x = palm_two.x;
+    } else {
+        LEAP.players[0].x = palm_two.x;
+        LEAP.players[1].x = palm_one.x;
+    }
 
     // Détection des gestures
     frame.gestures.forEach(function(gesture) {
         switch (gesture.type){
             case 'keyTap':
-                renderKeyTap(frame, gesture);
+                // renderKeyTap();
                 break;
         }
     });
@@ -70,12 +67,10 @@ function get2dCoords(leapPosition, frame) {
         y : (1 - normalizedPoint[1]) * window.innerHeight
     };
 }
+function rotatePiece() {
+    Player.current_piece.body.angle += 90;
+}
 
-/**
- * Dessine un gesture "Tap" à l'écran
- * @param {Object} frame Objet "frame" transmit par le Leap Motion
- * @param {Object} gesture Objet "gesture" de type "keyTap" à dessiner
- */
-function renderKeyTap(frame, gesture){
-    console.log('ROTATE')
+function renderKeyTap(){
+    rotatePiece();
 }
