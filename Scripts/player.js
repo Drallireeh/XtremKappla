@@ -1,5 +1,5 @@
 class Player {
-    constructor(x_pos, player_number) {
+    constructor(x_pos, player_number, rotate_key) {
         this.player_pos = x_pos;
         this.player_number = player_number;
         this.player_collision_group = game.physics.p2.createCollisionGroup();
@@ -12,15 +12,14 @@ class Player {
 
         this.tower.body.setCollisionGroup(this.player_collision_group);
         this.tower.body.collides([this.player_collision_group]);
+        
+        this.light_beam = game.add.sprite(0, 0, 'light_beam');
+        this.light_beam.anchor.set(0.5);
+
+        this.rotate_key = game.input.keyboard.addKey(Phaser.Keyboard.R);
 
         // Initialisation
         this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
-
-        this.faisceau = game.add.sprite(0, 0, 'faisceau');
-        this.faisceau.anchor.set(0.5);
-        this.faisceau.width = this.current_piece.width; // Need boolean after
-        
-        this.current_piece.addChild(this.faisceau);
     }
     
     /**
@@ -45,17 +44,21 @@ class Player {
         this.current_piece.body.mass = 0.1;
         
         this.current_piece.body.createGroupCallback(this.player_collision_group, this.onTowerHit.bind(this), game.context);
+        
+
+        this.setLightBeam();
     }
     
     update() {
+        if (this.rotate_key.isUp) this.current_piece.body.fixedRotation = false;
+
         if (this.current_piece.y > window.innerHeight + 50 && this.current_piece != undefined) {
-            this.current_piece.body.destroy();
+            this.current_piece.removeChildren();
             this.current_piece.destroy();
             this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
         }
 
         if (LEAP.connected) {
-
 
             this.current_piece.body .x = LEAP.players[ this.player_number ].x
             if(this.player_number == 0){
@@ -92,21 +95,21 @@ class Player {
                 else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
                     this.current_piece.body.x += 4;
                 }
-                
-                if(this.current_piece.body.x <= (window.innerWidth/2) + this.faisceau.width/2 +5){
-                    this.current_piece.body.x = (window.innerWidth/2) + this.faisceau.width/2 + 5;
+                if(this.current_piece.body.x <= (window.innerWidth/2) + this.light_beam.width/2 +5){
+                    this.current_piece.body.x = (window.innerWidth/2) + this.light_beam.width/2 + 5;
                 }
 
             } else if (this.player_number == 0){
 
+                if (this.rotate_key.isDown) this.rotatePiece()
                 if (game.input.keyboard.isDown(Phaser.Keyboard.Q)){
                     this.current_piece.body.x -= 4;
                 } 
                 else if (game.input.keyboard.isDown(Phaser.Keyboard.D)) {
                     this.current_piece.body.x += 4;
                 }
-                if(this.current_piece.body.x >= (window.innerWidth/2) - this.faisceau.width/2 -5){
-                    this.current_piece.body.x = (window.innerWidth/2) - this.faisceau.width/2 -5;
+                if(this.current_piece.body.x >= (window.innerWidth/2) - this.light_beam.width/2 -5){
+                    this.current_piece.body.x = (window.innerWidth/2) - this.light_beam.width/2 -5;
                 }
             }
         }
@@ -119,9 +122,20 @@ class Player {
         this.current_piece.body.createGroupCallback(this.player_collision_group, null, game.context);
         this.current_piece.removeChildren();
         this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
+    }
 
-        this.faisceau.width = this.current_piece.width; // Need boolean after
-        this.current_piece.addChild(this.faisceau);
+    /**
+     * Set width of light_beam, and add it in child of current_piece
+     */
+    setLightBeam() {
+        this.light_beam.width = this.current_piece.width; // Need boolean after
+        this.current_piece.addChild(this.light_beam);
+    }
+
+    rotatePiece() {
+        this.current_piece.body.angle += 90;
+
+        this.current_piece.body.fixedRotation = true;
     }
     rotatePiece() {
         this.current_piece.body.angle += 90;

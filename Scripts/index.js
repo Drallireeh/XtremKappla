@@ -14,8 +14,6 @@ const game = new Phaser.Game(
 let pieces = ["piece_one", "piece_two", "piece_three", "piece_four"];
 let piece_collision_group;
 
-let faisceau;
-let house;
 let player_one;
 let player_two;
 
@@ -28,7 +26,7 @@ function preload() {
     game.load.image('piece_three', '../Assets/Images/piece_three.png');
     game.load.image('piece_four', '../Assets/Images/piece_four.png');
     game.load.image('house', '../Assets/Images/house.png');
-    game.load.image('faisceau', '../Assets/Images/faisceau.png')
+    game.load.image('light_beam', '../Assets/Images/faisceau.png')
     game.load.image('background', '../Assets/Images/background.jpg');
 
     // physics
@@ -44,8 +42,8 @@ function create() {
     
     background = game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
     
-    player_one = new Player(200, 0);
-    player_two = new Player(1300, 1);
+    player_one = new Player(200, 0, Phaser.Keyboard.R);
+    player_two = new Player(1300, 1, Phaser.Keyboard.N);
     
     game.physics.p2.setImpactEvents(true);
 }
@@ -56,5 +54,4 @@ function update() {
 }
 
 function render() {
-    
 }
