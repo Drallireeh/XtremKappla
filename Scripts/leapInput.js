@@ -1,6 +1,6 @@
 const LEAP = {
-    position : { 
-        x : 0, 
+    position : {
+        x : 0,
         y : 0
     },
     players : [
@@ -20,10 +20,6 @@ console.log(game)
 
 controller.on('deviceStreaming', () => {
     LEAP.connected = true;
-    if (game) {
-        LEAP.player_one = player_one;
-        LEAP.player_two = player_two;
-    }
     console.log('✔ Leap is connected')
 });
 
@@ -31,11 +27,15 @@ controller.on('deviceDisconnected', function() {
     LEAP.connected = false;
     console.log('❌ Leap disconnected');
 });
-controller.on('frame', function(frame) { 
+controller.on('frame', function(frame) {
 
+    if (game) {
+        LEAP.player_one = player_one;
+        LEAP.player_two = player_two;
+    }
     let hand_one = frame.hands[0];
-    let hand_two = frame.hands[1];    
-        
+    let hand_two = frame.hands[1];
+
     if (!hand_one || !hand_two) return;
 
     const palm_one = get2dCoords(hand_one.stabilizedPalmPosition, frame);
@@ -53,13 +53,17 @@ controller.on('frame', function(frame) {
     // Détection des gestures
     frame.gestures.forEach(function(gesture) {
         switch (gesture.type){
-            case 'keyTap':
-                // renderKeyTap();
+            case 'screenTap':
+                let position = gesture.position;
+                if(position[0] < -9){
+                    renderKeyTap(LEAP.player_one);
+                } else if (position[0] > 9){
+                    renderKeyTap(LEAP.player_two);
+                }
                 break;
         }
     });
 });
-
 
 /**
  * Transforme les coordonnées 3D récupérée par le Leap en coordonnées 2D pour un <canvas> web
@@ -84,6 +88,6 @@ function rotatePiece() {
  * @param {Object} frame Objet "frame" transmit par le Leap Motion
  * @param {Object} gesture Objet "gesture" de type "keyTap" à dessiner
  */
-function renderKeyTap(frame, gesture){
-    LEAP.player_one.rotatePiece();
+function renderKeyTap(player){
+    player.rotatePiece();
 }

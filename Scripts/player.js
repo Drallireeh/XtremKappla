@@ -65,22 +65,22 @@ class Player {
                 
             
             
-                if(this.current_piece.body.x >= (window.innerWidth/2) - this.faisceau.width/2 - 10){
-                    this.current_piece.body.x = (window.innerWidth/2) - this.faisceau.width/2 - 10;
+                if(this.current_piece.body.x >= (window.innerWidth/2) - this.light_beam.width/2 - 10){
+                    this.current_piece.body.x = (window.innerWidth/2) - this.light_beam.width/2 - 10;
                 }
                 
-                if (this.current_piece.body.x <= 0 + this.faisceau.width/2){
-                    this.current_piece.body.x = 0 + this.faisceau.width/2;
+                if (this.current_piece.body.x <= 0 + this.light_beam.width/2){
+                    this.current_piece.body.x = 0 + this.light_beam.width/2;
                 } 
             
             } else if(this.player_number == 1){
 
-                if(this.current_piece.body.x <= (window.innerWidth/2) + this.faisceau.width/2 + 10){
-                    this.current_piece.body.x = (window.innerWidth/2) + this.faisceau.width/2 + 10;
+                if(this.current_piece.body.x <= (window.innerWidth/2) + this.light_beam.width/2 + 10){
+                    this.current_piece.body.x = (window.innerWidth/2) + this.light_beam.width/2 + 10;
                 }
 
-                if(this.current_piece.body.x >= window.innerWidth - this.faisceau.width/2){
-                    this.current_piece.body.x = window.innerWidth - this.faisceau.width/2;
+                if(this.current_piece.body.x >= window.innerWidth - this.light_beam.width/2){
+                    this.current_piece.body.x = window.innerWidth - this.light_beam.width/2;
                 }
         }
 
