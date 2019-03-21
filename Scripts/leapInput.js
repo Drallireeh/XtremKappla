@@ -7,6 +7,8 @@ const LEAP = {
         { x : 0, y : 0 },
         { x : 0, y : 0 },
     ],
+    player_one: null,
+    player_two: null,
     connected : false,
 };
 
@@ -14,8 +16,14 @@ const controller = new Leap.Controller();
 
 controller.connect();
 
+console.log(game)
+
 controller.on('deviceStreaming', () => {
     LEAP.connected = true;
+    if (game) {
+        LEAP.player_one = player_one;
+        LEAP.player_two = player_two;
+    }
     console.log('✔ Leap is connected')
 });
 
@@ -77,5 +85,5 @@ function get2dCoords(leapPosition, frame) {
  * @param {Object} gesture Objet "gesture" de type "keyTap" à dessiner
  */
 function renderKeyTap(frame, gesture){
-    console.log('ROTATE')
+    LEAP.player_one.rotatePiece();
 }
