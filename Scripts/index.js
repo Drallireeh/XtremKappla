@@ -43,7 +43,7 @@ function create() {
     background = game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
     
     player_one = new Player(200, 0, Phaser.Keyboard.R);
-    player_two = new Player(1300, 1, Phaser.Keyboard.N);
+    player_two = new Player(1300, 1, Phaser.Keyboard.T);
     
     game.physics.p2.setImpactEvents(true);
 }

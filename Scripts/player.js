@@ -12,16 +12,16 @@ class Player {
 
         this.tower.body.setCollisionGroup(this.player_collision_group);
         this.tower.body.collides([this.player_collision_group]);
-        
+
         this.light_beam = game.add.sprite(0, 0, 'light_beam');
         this.light_beam.anchor.set(0.5);
 
-        this.rotate_key = game.input.keyboard.addKey(Phaser.Keyboard.R);
+        this.rotate_key = game.input.keyboard.addKey(rotate_key);
 
         // Initialisation
         this.spawnPiece(this.player_pos - 55, 100, pieces[getRandomInt(pieces.length)], 'physicsData');
     }
-    
+
     /**
      * Add a piece, place it and adjust parameters
      * @param {int} x position in x
@@ -33,24 +33,24 @@ class Player {
     spawnPiece(x, y, name, physics_data) {
         this.current_piece = game.add.sprite(x, y, name);
         game.physics.p2.enable(this.current_piece);
-        
+
         this.current_piece.body.clearShapes();
         this.current_piece.body.loadPolygon(physics_data, name);
-        
+
         this.current_piece.body.setCollisionGroup(this.player_collision_group);
         this.current_piece.body.collides([this.player_collision_group]);
-        
+
         this.current_piece.body.damping = 0.5;
         this.current_piece.body.mass = 0.1;
-        
+
         this.current_piece.body.createGroupCallback(this.player_collision_group, this.onTowerHit.bind(this), game.context);
-        
 
         this.setLightBeam();
     }
-    
+
     update() {
         if (this.rotate_key.isUp) this.current_piece.body.fixedRotation = false;
+        if (this.rotate_key.isDown) this.rotatePiece()
 
         if (this.current_piece.y > window.innerHeight + 50 && this.current_piece != undefined) {
             this.current_piece.removeChildren();
@@ -59,9 +59,9 @@ class Player {
         }
 
         if (LEAP.connected) {
-            this.current_piece.body .x = LEAP.players[ this.player_number ].x
-            
-            if(this.player_number == 0){
+            this.current_piece.body.x = LEAP.players[this.player_number].x
+
+            if (this.player_number == 0) {
                 if (this.current_piece.body.x > 0 && this.current_piece.body.x < 60) {
                     this.current_piece.body.x = 30;
                 } else if (this.current_piece.body.x > 60 && this.current_piece.body.x < 120) {
@@ -86,9 +86,8 @@ class Player {
                     this.current_piece.body.x = 630;
                 } else if (this.current_piece.body.x > 660 && this.current_piece.body.x < 720) {
                     this.current_piece.body.x = 690;
-                    
+
                 } else if (this.player_number == 1) {
-                    
                     if (this.current_piece.body.x > 720 && this.current_piece.body.x < 780) {
                         this.current_piece.body.x = 750;
                     } else if (this.current_piece.body.x > 780 && this.current_piece.body.x < 840) {
@@ -121,29 +120,28 @@ class Player {
                 }
             }
         } else {
-            if(this.player_number == 1){
+            if (this.player_number == 1) {
                 if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
                     this.current_piece.body.x -= 4;
                 } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
                     this.current_piece.body.x += 4;
                 }
-                if(this.current_piece.body.x <= (window.innerWidth/2) + this.light_beam.width/2 +5){
-                    this.current_piece.body.x = (window.innerWidth/2) + this.light_beam.width/2 + 5;
+                if (this.current_piece.body.x <= (window.innerWidth / 2) + this.light_beam.width / 2 + 5) {
+                    this.current_piece.body.x = (window.innerWidth / 2) + this.light_beam.width / 2 + 5;
                 }
-            } else if (this.player_number == 0){
-                if (this.rotate_key.isDown) this.rotatePiece()
-                if (game.input.keyboard.isDown(Phaser.Keyboard.Q)){
+            } else if (this.player_number == 0) {
+                if (game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
                     this.current_piece.body.x -= 4;
                 } else if (game.input.keyboard.isDown(Phaser.Keyboard.D)) {
                     this.current_piece.body.x += 4;
                 }
-                if(this.current_piece.body.x >= (window.innerWidth/2) - this.light_beam.width/2 -5){
-                    this.current_piece.body.x = (window.innerWidth/2) - this.light_beam.width/2 -5;
+                if (this.current_piece.body.x >= (window.innerWidth / 2) - this.light_beam.width / 2 - 5) {
+                    this.current_piece.body.x = (window.innerWidth / 2) - this.light_beam.width / 2 - 5;
                 }
             }
         }
     }
-    
+
     /**
      * Callback when the current piece hit the tower
      */
@@ -157,13 +155,28 @@ class Player {
      * Set width of light_beam, and add it in child of current_piece
      */
     setLightBeam() {
+        this.light_beam.isRotate = false;
         this.light_beam.width = this.current_piece.width; // Need boolean after
+        this.light_beam.angle = 0;
         this.current_piece.addChild(this.light_beam);
     }
 
     rotatePiece() {
-        this.current_piece.body.angle += 90;
+        if (this.current_piece.key != "piece_two") {
+            if (this.current_piece.body.fixedRotation == false) {
+                this.current_piece.body.angle += 90;
+                this.light_beam.angle += 90;
+                if (this.light_beam.isRotate) {
+                    this.light_beam.isRotate = false;
+                    this.light_beam.width = this.current_piece.width;
+                }
+                else {
+                    this.light_beam.isRotate = true;
+                    this.light_beam.width = this.current_piece.height;
+                }
+            }
 
-        this.current_piece.body.fixedRotation = true;
+            this.current_piece.body.fixedRotation = true;
+        }
     }
 }
