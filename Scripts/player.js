@@ -59,71 +59,38 @@ class Player {
         }
 
         if (LEAP.connected) {
-            this.current_piece.body.x = LEAP.players[this.player_number].x
 
-            if (this.player_number == 0) {
-                if (this.current_piece.body.x > 0 && this.current_piece.body.x < 60) {
-                    this.current_piece.body.x = 30;
-                } else if (this.current_piece.body.x > 60 && this.current_piece.body.x < 120) {
-                    this.current_piece.body.x = 90;
-                } else if (this.current_piece.body.x > 120 && this.current_piece.body.x < 180) {
-                    this.current_piece.body.x = 150;
-                } else if (this.current_piece.body.x > 180 && this.current_piece.body.x < 240) {
-                    this.current_piece.body.x = 210;
-                } else if (this.current_piece.body.x > 240 && this.current_piece.body.x < 300) {
-                    this.current_piece.body.x = 270;
-                } else if (this.current_piece.body.x > 300 && this.current_piece.body.x < 360) {
-                    this.current_piece.body.x = 330;
-                } else if (this.current_piece.body.x > 360 && this.current_piece.body.x < 420) {
-                    this.current_piece.body.x = 390;
-                } else if (this.current_piece.body.x > 420 && this.current_piece.body.x < 480) {
-                    this.current_piece.body.x = 450;
-                } else if (this.current_piece.body.x > 480 && this.current_piece.body.x < 540) {
-                    this.current_piece.body.x = 510;
-                } else if (this.current_piece.body.x > 540 && this.current_piece.body.x < 600) {
-                    this.current_piece.body.x = 570;
-                } else if (this.current_piece.body.x > 600 && this.current_piece.body.x < 660) {
-                    this.current_piece.body.x = 630;
-                } else if (this.current_piece.body.x > 660 && this.current_piece.body.x < 720) {
-                    this.current_piece.body.x = 690;
-
-                } else if (this.player_number == 1) {
-                    if (this.current_piece.body.x > 720 && this.current_piece.body.x < 780) {
-                        this.current_piece.body.x = 750;
-                    } else if (this.current_piece.body.x > 780 && this.current_piece.body.x < 840) {
-                        this.current_piece.body.x = 810;
-                    } else if (this.current_piece.body.x > 840 && this.current_piece.body.x < 900) {
-                        this.current_piece.body.x = 870;
-                    } else if (this.current_piece.body.x > 900 && this.current_piece.body.x < 960) {
-                        this.current_piece.body.x = 930;
-                    } else if (this.current_piece.body.x > 960 && this.current_piece.body.x < 1020) {
-                        this.current_piece.body.x = 990;
-                    } else if (this.current_piece.body.x > 1020 && this.current_piece.body.x < 1080) {
-                        this.current_piece.body.x = 1050;
-                    } else if (this.current_piece.body.x > 1080 && this.current_piece.body.x < 1140) {
-                        this.current_piece.body.x = 1110;
-                    } else if (this.current_piece.body.x > 1140 && this.current_piece.body.x < 1200) {
-                        this.current_piece.body.x = 1170;
-                    } else if (this.current_piece.body.x > 1200 && this.current_piece.body.x < 1260) {
-                        this.current_piece.body.x = 1230;
-                    } else if (this.current_piece.body.x > 1260 && this.current_piece.body.x < 1320) {
-                        this.current_piece.body.x = 1290;
-                    } else if (this.current_piece.body.x > 1320 && this.current_piece.body.x < 1380) {
-                        this.current_piece.body.x = 1350;
-                    } else if (this.current_piece.body.x > 1380 && this.current_piece.body.x < 1440) {
-                        this.current_piece.body.x = 1410;
-                    } else if (this.current_piece.body.x > 1440 && this.current_piece.body.x < 1500) {
-                        this.current_piece.body.x = 1470;
-                    } else if (this.current_piece.body.x > 1500) {
-                        this.current_piece.body.x = 1480
-                    }
+            this.current_piece.body .x = LEAP.players[ this.player_number ].x
+            if(this.player_number == 0){
+                
+            
+            
+                if(this.current_piece.body.x >= (window.innerWidth/2) - this.light_beam.width/2 - 10){
+                    this.current_piece.body.x = (window.innerWidth/2) - this.light_beam.width/2 - 10;
                 }
-            }
+                
+                if (this.current_piece.body.x <= 0 + this.light_beam.width/2){
+                    this.current_piece.body.x = 0 + this.light_beam.width/2;
+                } 
+            
+            } else if(this.player_number == 1){
+
+                if(this.current_piece.body.x <= (window.innerWidth/2) + this.light_beam.width/2 + 10){
+                    this.current_piece.body.x = (window.innerWidth/2) + this.light_beam.width/2 + 10;
+                }
+
+                if(this.current_piece.body.x >= window.innerWidth - this.light_beam.width/2){
+                    this.current_piece.body.x = window.innerWidth - this.light_beam.width/2;
+                }
+        }
+
         } else {
             if (this.player_number == 1) {
                 if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
                     this.current_piece.body.x -= 4;
-                } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                } 
+                
+                else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
                     this.current_piece.body.x += 4;
                 }
                 if (this.current_piece.body.x <= (window.innerWidth / 2) + this.light_beam.width / 2 + 5) {
@@ -132,7 +99,8 @@ class Player {
             } else if (this.player_number == 0) {
                 if (game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
                     this.current_piece.body.x -= 4;
-                } else if (game.input.keyboard.isDown(Phaser.Keyboard.D)) {
+                } 
+                else if (game.input.keyboard.isDown(Phaser.Keyboard.D)) {
                     this.current_piece.body.x += 4;
                 }
                 if (this.current_piece.body.x >= (window.innerWidth / 2) - this.light_beam.width / 2 - 5) {
