@@ -35,16 +35,15 @@ function preload() {
 
 function create() {
     game.physics.startSystem(Phaser.Physics.P2JS);
-    // game.physics.p2.updateBoundsCollisionGroup();
-    
+
     game.physics.p2.gravity.y = 100;
     game.physics.p2.restitution = 0;
-    
+
     background = game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
-    
+
     player_one = new Player(200, 0, Phaser.Keyboard.R);
     player_two = new Player(1300, 1, Phaser.Keyboard.T);
-    
+
     game.physics.p2.setImpactEvents(true);
 }
 
