@@ -50,7 +50,7 @@ controller.on('frame', function (frame) {
     // Détection des gestures
     frame.gestures.forEach(function (gesture) {
         switch (gesture.type) {
-            case 'screenTap':
+            case 'keyTap':
                 let position = gesture.position;
                 if (position[0] < -9) {
                     renderKeyTap(LEAP.player_one);
