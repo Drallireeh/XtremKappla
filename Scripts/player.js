@@ -4,7 +4,7 @@ class Player {
         this.player_number = player_number;
         this.player_collision_group = game.physics.p2.createCollisionGroup();
 
-        this.tower = game.add.sprite(this.player_pos, window.innerHeight - 100, 'house');
+        this.tower = game.add.sprite(this.player_pos, window.innerHeight - 89, 'house');
         game.physics.p2.enable(this.tower);
         this.tower.body.static = true;
         this.tower.body.clearShapes();
