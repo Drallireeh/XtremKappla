@@ -64,16 +64,13 @@ class Player {
                 if (this.current_piece.body.x >= (window.innerWidth / 2) - this.light_beam.width / 2 - 10) {
                     this.current_piece.body.x = (window.innerWidth / 2) - this.light_beam.width / 2 - 10;
                 }
-
                 if (this.current_piece.body.x <= 0 + this.light_beam.width / 2) {
                     this.current_piece.body.x = 0 + this.light_beam.width / 2;
                 }
             } else if (this.player_number == 1) {
-
                 if (this.current_piece.body.x <= (window.innerWidth / 2) + this.light_beam.width / 2 + 10) {
                     this.current_piece.body.x = (window.innerWidth / 2) + this.light_beam.width / 2 + 10;
                 }
-
                 if (this.current_piece.body.x >= window.innerWidth - this.light_beam.width / 2) {
                     this.current_piece.body.x = window.innerWidth - this.light_beam.width / 2;
                 }
@@ -115,11 +112,22 @@ class Player {
     /**
      * Set width of light_beam, and add it in child of current_piece
      */
-    setLightBeam(is_rotate, width) {
-        this.light_beam.is_rotate = is_rotate;
-        this.light_beam.width = width;
+    setLightBeam() {
+        this.light_beam.is_rotate = false;
+        this.light_beam.width = this.current_piece.width;
         this.light_beam.angle = 0;
         this.current_piece.addChild(this.light_beam);
+    }
+
+    /**
+     * Rotate piece, set width with current_piece, and say if it's rotate or nots
+     * @param {boolean} is_rotate 
+     * @param {int} width 
+     */
+    rotateLighBeam(is_rotate, width) {
+        this.light_beam.angle += 90;
+        this.light_beam.is_rotate = is_rotate;
+        this.light_beam.width = width;
     }
 
     /**
@@ -130,19 +138,16 @@ class Player {
     rotatePiece() {
         if (this.current_piece.key != "piece_two") {
             if (this.current_piece.body.fixedRotation == false) {
-                
                 this.current_piece.body.angle += 90;
-                this.light_beam.angle += 90;
 
                 // Adjust light beam
                 if (this.light_beam.is_rotate) {
-                    this.setLightBeam(false, this.current_piece.width);
+                    this.rotateLighBeam(false, this.current_piece.width);
                 }
                 else {
-                    this.setLightBeam(true, this.current_piece.height);
+                    this.rotateLighBeam(true, this.current_piece.height);
                 }
             }
-
             this.current_piece.body.fixedRotation = true;
         }
     }
