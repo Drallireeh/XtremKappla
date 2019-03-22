@@ -83,7 +83,6 @@ class Player {
                 if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
                     this.current_piece.body.x -= 4;
                 }
-
                 else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
                     this.current_piece.body.x += 4;
                 }
