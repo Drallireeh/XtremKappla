@@ -61,45 +61,57 @@ class Player {
         if (LEAP.connected) {
             this.current_piece.body.x = LEAP.players[this.player_number].x
             if (this.player_number == 0) {
-                if (this.current_piece.body.x >= (window.innerWidth / 2) - this.light_beam.width / 2 - 10) {
-                    this.current_piece.body.x = (window.innerWidth / 2) - this.light_beam.width / 2 - 10;
-                }
-                if (this.current_piece.body.x <= 0 + this.light_beam.width / 2) {
-                    this.current_piece.body.x = 0 + this.light_beam.width / 2;
-                }
+                this.P1MoveWithLeap();
             } else if (this.player_number == 1) {
-                if (this.current_piece.body.x <= (window.innerWidth / 2) + this.light_beam.width / 2 + 10) {
-                    this.current_piece.body.x = (window.innerWidth / 2) + this.light_beam.width / 2 + 10;
-                }
-                if (this.current_piece.body.x >= window.innerWidth - this.light_beam.width / 2) {
-                    this.current_piece.body.x = window.innerWidth - this.light_beam.width / 2;
-                }
+                this.P2MoveWithLeap();
             }
         } else {
-            if (this.player_number == 1) {
-                if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-                    this.current_piece.body.x -= 4;
-                }
-                else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-                    this.current_piece.body.x += 4;
-                }
-                if (this.current_piece.body.x <= (window.innerWidth / 2) + this.light_beam.width / 2 + 5) {
-                    this.current_piece.body.x = (window.innerWidth / 2) + this.light_beam.width / 2 + 5;
-                }
-            } else if (this.player_number == 0) {
-                if (game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
-                    this.current_piece.body.x -= 4;
-                }
-                else if (game.input.keyboard.isDown(Phaser.Keyboard.D)) {
-                    this.current_piece.body.x += 4;
-                }
-                if (this.current_piece.body.x >= (window.innerWidth / 2) - this.light_beam.width / 2 - 5) {
-                    this.current_piece.body.x = (window.innerWidth / 2) - this.light_beam.width / 2 - 5;
-                }
+            if (this.player_number == 0) {
+                this.P1MoveWithKeyboard();
+            } else if (this.player_number == 1) {
+                this.P2MoveWithKeyboard();
             }
         }
     }
 
+    P1MoveWithLeap(){
+        if (this.current_piece.body.x >= (window.innerWidth / 2) - this.light_beam.width / 2 - 10) {
+            this.current_piece.body.x = (window.innerWidth / 2) - this.light_beam.width / 2 - 10;
+        }
+        if (this.current_piece.body.x <= 0 + this.light_beam.width / 2) {
+            this.current_piece.body.x = 0 + this.light_beam.width / 2;
+        }
+    }
+    P2MoveWithLeap(){
+        if (this.current_piece.body.x <= (window.innerWidth / 2) + this.light_beam.width / 2 + 10) {
+            this.current_piece.body.x = (window.innerWidth / 2) + this.light_beam.width / 2 + 10;
+        }
+        if (this.current_piece.body.x >= window.innerWidth - this.light_beam.width / 2) {
+            this.current_piece.body.x = window.innerWidth - this.light_beam.width / 2;
+        }
+    }
+    P1MoveWithKeyboard(){
+        if (game.input.keyboard.isDown(Phaser.Keyboard.Q)) {
+            this.current_piece.body.x -= 4;
+        }
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.D)) {
+            this.current_piece.body.x += 4;
+        }
+        if (this.current_piece.body.x >= (window.innerWidth / 2) - this.light_beam.width / 2 - 5) {
+            this.current_piece.body.x = (window.innerWidth / 2) - this.light_beam.width / 2 - 5;
+        }
+    }
+    P2MoveWithKeyboard(){
+        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+            this.current_piece.body.x -= 4;
+        }
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+            this.current_piece.body.x += 4;
+        }
+        if (this.current_piece.body.x <= (window.innerWidth / 2) + this.light_beam.width / 2 + 5) {
+            this.current_piece.body.x = (window.innerWidth / 2) + this.light_beam.width / 2 + 5;
+        }
+    }
     /**
      * Callback when the current piece hit the tower
      */
