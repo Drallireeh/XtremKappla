@@ -12,8 +12,6 @@ const game = new Phaser.Game(
 );
 
 let pieces = ["piece_one", "piece_two", "piece_three", "piece_four"];
-let piece_collision_group;
-
 let player_one;
 let player_two;
 
@@ -36,14 +34,17 @@ function preload() {
 function create() {
     game.physics.startSystem(Phaser.Physics.P2JS);
 
+    // Options to adjust to augment speed/bouncing
     game.physics.p2.gravity.y = 100;
     game.physics.p2.restitution = 0;
 
     background = game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
 
+    // Create players
     player_one = new Player(200, 0, Phaser.Keyboard.R);
     player_two = new Player(1300, 1, Phaser.Keyboard.T);
 
+    // If true, callbacks group activated
     game.physics.p2.setImpactEvents(true);
 }
 

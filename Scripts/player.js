@@ -45,7 +45,7 @@ class Player {
 
         this.current_piece.body.createGroupCallback(this.player_collision_group, this.onTowerHit.bind(this), game.context);
 
-        this.setLightBeam();
+        this.setLightBeam(false, this.current_piece.width);
     }
 
     update() {
@@ -116,25 +116,31 @@ class Player {
     /**
      * Set width of light_beam, and add it in child of current_piece
      */
-    setLightBeam() {
-        this.light_beam.isRotate = false;
-        this.light_beam.width = this.current_piece.width; // Need boolean after
+    setLightBeam(is_rotate, width) {
+        this.light_beam.is_rotate = is_rotate;
+        this.light_beam.width = width;
         this.light_beam.angle = 0;
         this.current_piece.addChild(this.light_beam);
     }
 
+    /**
+     * Rotate current_piece of player, and set light beam to avoid rotating
+     * Change width of light beam to correspond with current_piece.
+     * If the key is a cube, we don't rotate it, because it's useless.
+     */
     rotatePiece() {
         if (this.current_piece.key != "piece_two") {
             if (this.current_piece.body.fixedRotation == false) {
+                
                 this.current_piece.body.angle += 90;
                 this.light_beam.angle += 90;
-                if (this.light_beam.isRotate) {
-                    this.light_beam.isRotate = false;
-                    this.light_beam.width = this.current_piece.width;
+
+                // Adjust light beam
+                if (this.light_beam.is_rotate) {
+                    this.setLightBeam(false, this.current_piece.width);
                 }
                 else {
-                    this.light_beam.isRotate = true;
-                    this.light_beam.width = this.current_piece.height;
+                    this.setLightBeam(true, this.current_piece.height);
                 }
             }
 
