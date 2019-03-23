@@ -42,7 +42,7 @@ function create() {
 
     // Create players
     player_one = new Player(200, 0, Phaser.Keyboard.R);
-    player_two = new Player(1300, 1, Phaser.Keyboard.T);
+    player_two = new Player(1300, 1, Phaser.Keyboard.UP);
 
     // If true, callbacks groups activated
     game.physics.p2.setImpactEvents(true);
